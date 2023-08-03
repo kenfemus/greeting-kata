@@ -12,4 +12,8 @@ describe('Greeting Kata', () => {
   it('Requirement 3: When name is all uppercase, then the method should shout back to the user. For example, when name is "JERRY" then the method should return the string "HELLO JERRY!"', () => {
     expect(greet('JERRY')).toBe('HELLO JERRY!')
   })
+
+  it('Requirement 4: when name is ["Jill", "Jane"], then the method should return the string "Hello, Jill and Jane."', () => {
+    expect(greet(['Jill', 'Jane'])).toBe('Hello, Jill and Jane.')
+  })
 })
