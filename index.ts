@@ -4,7 +4,11 @@ export const greet = (name: string | string[] | null): string => {
   }
 
   if (name instanceof Array) {
-    return `Hello, ${name.join(' and ')}.`
+    if (name.length <= 2) {
+      return `Hello, ${name.join(' and ')}.`
+    }
+    const last = name.pop() as string
+    return `Hello, ${name.join(', ')}, and ${last}.`
   }
 
   if (name === name.toUpperCase()) {
