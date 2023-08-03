@@ -10,12 +10,16 @@ export const greet = (name: string | string[] | null): string => {
       if (n === n.toUpperCase()) {
         upperCases.push(n)
       } else {
-        lowerCases.push(...n.replace(/ /g, '').split(','))
+        const lowerCaseNames =
+          n.startsWith('"') && n.endsWith('"')
+            ? [n.replace(/"/g, '')]
+            : n.replace(/ /g, '').split(',')
+        lowerCases.push(...lowerCaseNames)
       }
     })
-    const l = lowerCase(lowerCases)
-    const u = upperCase(upperCases)
-    return [l, u].filter((str) => str).join(' AND ')
+    return [lowerCase(lowerCases), upperCase(upperCases)]
+      .filter((str) => str)
+      .join(' AND ')
   }
 
   if (name === name.toUpperCase()) {

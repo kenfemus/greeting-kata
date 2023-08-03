@@ -34,4 +34,10 @@ describe('Greeting Kata', () => {
       'Hello, Bob, Charlie, and Dianne.',
     )
   })
+
+  it('Requirement 8: when name is ["Bob", ""Charlie, Dianne""], then the method should return the string "Hello, Bob and Charlie, Dianne."', () => {
+    expect(greet(['Bob', '"Charlie, Dianne"'])).toBe(
+      'Hello, Bob and Charlie, Dianne.',
+    )
+  })
 })
