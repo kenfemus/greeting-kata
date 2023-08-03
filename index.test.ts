@@ -5,6 +5,10 @@ describe('Greeting Kata', () => {
     expect(greet('Bob')).toBe('Hello, Bob.')
   })
 
+  it('Requirement 1.1', () => {
+    expect(greet('Alice')).toBe('Hello, Alice.')
+  })
+
   it('Requirement 2: when name is null, then the method should return the string "Hello, my friend."', () => {
     expect(greet(null)).toBe('Hello, my friend.')
   })

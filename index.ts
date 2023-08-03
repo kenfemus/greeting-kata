@@ -25,7 +25,7 @@ export const greet = (name: string | string[] | null): string => {
   if (name === name.toUpperCase()) {
     return 'HELLO JERRY!'
   }
-  return 'Hello, Bob.'
+  return `Hello, ${name}.`
 }
 
 const lowerCase = (name: string[]): string => {
