@@ -3,32 +3,31 @@ export const greet = (name: string | string[] | null): string => {
     return 'Hello, my friend.'
   }
 
-  if (name instanceof Array) {
-    const lowerCases: string[] = []
-    const upperCases: string[] = []
-    name.forEach((n) => {
-      if (n === n.toUpperCase()) {
-        upperCases.push(n)
+  const names = name instanceof Array ? name : [name]
+  const [lowerCases, upperCases] = names.reduce<string[][]>(
+    (prev, current) => {
+      if (current === current.toUpperCase()) {
+        prev[1].push(current)
       } else {
         const lowerCaseNames =
-          n.startsWith('"') && n.endsWith('"')
-            ? [n.replace(/"/g, '')]
-            : n.replace(/ /g, '').split(',')
-        lowerCases.push(...lowerCaseNames)
+          current.startsWith('"') && current.endsWith('"')
+            ? [current.replace(/"/g, '')]
+            : current.replace(/ /g, '').split(',')
+        prev[0].push(...lowerCaseNames)
       }
-    })
-    return [lowerCase(lowerCases), upperCase(upperCases)]
-      .filter((str) => str)
-      .join(' AND ')
-  }
-
-  if (name === name.toUpperCase()) {
-    return `HELLO ${name}!`
-  }
-  return `Hello, ${name}.`
+      return prev
+    },
+    [[], []],
+  )
+  return [lowerCase(lowerCases), upperCase(upperCases)]
+    .filter((str) => str)
+    .join(' AND ')
 }
 
 const lowerCase = (name: string[]): string => {
+  if (name.length === 0) {
+    return ''
+  }
   if (name.length <= 2) {
     return `Hello, ${name.join(' and ')}.`
   }
