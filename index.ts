@@ -2,8 +2,11 @@ export const greet = (name: string | string[] | null): string => {
   if (name === null) {
     return 'Hello, my friend.'
   }
-
   const names = name instanceof Array ? name : [name]
+  return join(greetMessages(lowerCasesAndUpperCases(names)))
+}
+
+const lowerCasesAndUpperCases = (names: string[]): string[][] => {
   const [lowerCases, upperCases] = names.reduce<string[][]>(
     (prev, current) => {
       if (current === current.toUpperCase()) {
@@ -19,12 +22,10 @@ export const greet = (name: string | string[] | null): string => {
     },
     [[], []],
   )
-  return [lowerCase(lowerCases), upperCase(upperCases)]
-    .filter((str) => str)
-    .join(' AND ')
+  return [lowerCases, upperCases]
 }
 
-const lowerCase = (name: string[]): string => {
+const lowerCaseGreeting = (name: string[]): string => {
   if (name.length === 0) {
     return ''
   }
@@ -35,7 +36,7 @@ const lowerCase = (name: string[]): string => {
   return `Hello, ${name.join(', ')}, and ${last}.`
 }
 
-const upperCase = (name: string[]): string => {
+const upperCaseGreeting = (name: string[]): string => {
   if (name.length === 0) {
     return ''
   }
@@ -44,4 +45,15 @@ const upperCase = (name: string[]): string => {
   }
   const last = name.pop() as string
   return `HELLO ${name.join(', ')}, and ${last}!`
+}
+
+const greetMessages = ([
+  lowerCaseNames,
+  upperCaseNames,
+]: string[][]): string[] => {
+  return [lowerCaseGreeting(lowerCaseNames), upperCaseGreeting(upperCaseNames)]
+}
+
+const join = (messages: string[]): string => {
+  return messages.filter((str) => str).join(' AND ')
 }
